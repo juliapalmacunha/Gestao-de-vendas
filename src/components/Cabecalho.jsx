@@ -46,7 +46,7 @@ const Cabecalho = ({ alternarGaveta }) => {
             </Typography>
 
             <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
-              <img src="/imagens/flor-da-vida.png" alt="logo flor da vida" 
+              <img src="/flor-da-vida.png" alt="logo flor da vida" 
               style={{ width: '30px', height: '30px', marginLeft: '10px' }}
               />
             </Box>
