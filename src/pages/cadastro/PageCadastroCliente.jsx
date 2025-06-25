@@ -317,7 +317,7 @@ const CadastroCliente = () => {
               <figure style={{ margin: "auto" }}>
                 <img
                   style={{ width: "80px", height: "80px" }}
-                  src="public/imagens/assistencia-social.gif"
+                  src="/imagens/assistencia-social.gif"
                   alt="Ícone animado"
                 />
               </figure>
