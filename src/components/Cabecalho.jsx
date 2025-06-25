@@ -16,7 +16,6 @@ import {
 import BotaoDeslogar from './BotaoDeslogar';
 import { Link } from 'react-router-dom';
 
-import imagemLogo from "../assets/imagens/flor-da-vida.png"; 
 
 
 
@@ -47,7 +46,7 @@ const Cabecalho = ({ alternarGaveta }) => {
             </Typography>
 
             <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
-              <img src={imagemLogo} alt="logo flor da vida" 
+              <img src="public/imagens/imagens/flor-da-vida.png" alt="logo flor da vida" 
               style={{ width: '30px', height: '30px', marginLeft: '10px' }}
               />
             </Box>

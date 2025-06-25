@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Box, TextField, Typography, InputLabel, Button, MenuItem } from "@mui/material";
-import iconeAnimado from "/imagens/assistencia-social.gif";
 import useHookCrud from "../../hooks/HookCrud";
 import Rodape from "../../components/Rodape";
 
@@ -318,7 +317,7 @@ const CadastroCliente = () => {
               <figure style={{ margin: "auto" }}>
                 <img
                   style={{ width: "80px", height: "80px" }}
-                  src={iconeAnimado}
+                  src="public/imagens/imagens/assistencia-social.png"
                   alt="Ícone animado"
                 />
               </figure>

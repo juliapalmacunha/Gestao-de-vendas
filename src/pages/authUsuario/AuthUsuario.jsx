@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { Box, TextField, InputLabel, Button } from "@mui/material";
 import Rodape from "../../components/Rodape";
 import useHookAutenticacao from "../../hooks/HookAutenticacao";
-import imageAuth from "../../assets/imagens/imageAuth.png";
 
 
 
@@ -94,7 +93,7 @@ const AuthUsuario = () => {
                     <img
                         width="250px"
                         height="250px"
-                        src={imageAuth}
+                        src="public/imagens/imagens/imageAuth.png"
                         alt="imagem" />
 
                 </Box>
