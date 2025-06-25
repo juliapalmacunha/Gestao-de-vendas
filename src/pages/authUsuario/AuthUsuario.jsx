@@ -93,7 +93,7 @@ const AuthUsuario = () => {
                     <img
                         width="250px"
                         height="250px"
-                        src="public/imagens/imagens/imageAuth.png"
+                        src="public/imagens/imageAuth.png"
                         alt="imagem" />
 
                 </Box>
