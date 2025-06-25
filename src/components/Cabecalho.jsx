@@ -16,7 +16,7 @@ import {
 import BotaoDeslogar from './BotaoDeslogar';
 import { Link } from 'react-router-dom';
 
-import imagemLogo from "../../public/imagens/flor-da-vida.png"; // Importando a imagem da logo
+import imagemLogo from "../assets/imagens/flor-da-vida.png"; 
 
 
 

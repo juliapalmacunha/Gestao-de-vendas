@@ -4,7 +4,7 @@ import Rodape from "../../components/Rodape";
 import useHookCrud from "../../hooks/HookCrud";
 import { AuthContext } from "../../contextos/AuthContext";
 import useHookAutenticacao from "../../hooks/HookAutenticacao";
-import imagemAuth from "../../../public/imagens/Automated_Bank_Reconciliation_Software__The_Ultimate_Solution_for_Faster_and_Accurate_Reconciliation-removebg-preview.png";
+import imagemAuth from "../../assets/imagens/Automated_Bank_Reconciliation_Software__The_Ultimate_Solution_for_Faster_and_Accurate_Reconciliation-removebg-preview.png";
 
 
 
