@@ -95,7 +95,7 @@ const AuthUsuario = () => {
                     <img
                         width="250px"
                         height="250px"
-                        src="public/imagens/Automated_Bank_Reconciliation_Software__The_Ultimate_Solution_for_Faster_and_Accurate_Reconciliation-removebg-preview.png" alt="" />
+                        src="/imagens/Automated_Bank_Reconciliation_Software__The_Ultimate_Solution_for_Faster_and_Accurate_Reconciliation-removebg-preview.png" alt="" />
 
                 </Box>
                 
