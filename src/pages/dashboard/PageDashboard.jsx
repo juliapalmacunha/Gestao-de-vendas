@@ -381,7 +381,7 @@ const Dashboard = () => {
           startIcon={<CloudUploadIcon />}
           onClick={baixandoArquivoJson}
         >
-          Upload files
+          Download files
         </Button>
       </Box>
 
