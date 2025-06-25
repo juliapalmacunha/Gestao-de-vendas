@@ -52,7 +52,9 @@ const CadastroCliente = () => {
 
   return (
 
-    <>
+    <Box
+
+    >
 
 
 
@@ -60,6 +62,9 @@ const CadastroCliente = () => {
 
       <Box
         sx={{
+
+          width: { xs: '400px', md: '900px' },
+          height: { xs: '500px', md: '450px' },
           boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
           paddingBottom: "40px",
           marginTop: 13
@@ -67,8 +72,6 @@ const CadastroCliente = () => {
         display="flex"
         flexDirection="column"
         bgcolor="white"
-        width="900px"
-        height="450px"
         borderRadius="10px"
         justifyContent="center"
         alignItems="center"
@@ -78,6 +81,7 @@ const CadastroCliente = () => {
 
 
         <Box
+          overflow={"hidden"} 
           component="form"
           width="100%"
           p={2}
@@ -87,13 +91,22 @@ const CadastroCliente = () => {
           onSubmit={adicionandoCliente}
         >
 
+
+
           <Box
+            sx={{ width: { xs: '100%', md: '60%' } }}
             display="flex"
             flexDirection="column"
-            width="60%"
             gap={1}
             paddingInline={7}
+           
           >
+
+            <Box>
+              <h2 style={{ fontFamily: "Poppins semibold", color: "#3441b1", fontSize: "24px", textAlign: "center" }}>
+                Cadastre seu cliente</h2>
+            </Box>
+
             <InputLabel htmlFor="nome-input" sx={{ color: "#444141", mt: "5px", fontFamily: "Poppins regular", fontSize: 16, display: "flex", justifyContent: "flex-start", alignItems: "flex-start", width: "100%" }}>
               Nome:
             </InputLabel>
@@ -255,7 +268,8 @@ const CadastroCliente = () => {
           </Box>
 
 
-          <div style={{
+          <Box sx={{
+            display: { xs: 'none', md: 'flex' },
             width: '4.5px',
             height: '100%',
             backgroundColor: "#f7f7f7",
@@ -265,46 +279,50 @@ const CadastroCliente = () => {
           }} />
 
 
-          <Box     
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            textAlign: "center",
-            gap: "60px"
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              textAlign: "center",
+              gap: "60px"
 
-          }}
+            }}
           >
 
             <Box
               sx={{
+                display: { xs: 'none', md: 'flex' },
                 textAlign: "left",
                 height: "80px",
                 width: "60%",
                 bgcolor: '#d2d8ef',
                 p: 4,
                 borderRadius: "10px",
-                display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 gap: 1.5,
               }}
             >
               <Typography sx={{ fontFamily: 'Poppins semibold', fontSize: 22, color: '#3441b1' }}>
-               Cadastro de Cliente
+                Cadastro de Cliente
               </Typography>
               <Typography sx={{ fontFamily: 'Poppins regular', fontSize: 16, color: '#2d2d2f' }}>
-              Use nomes completos e padronizados para facilitar buscas futuras.
+                Use nomes completos e padronizados para facilitar buscas futuras.
               </Typography>
             </Box>
-            <figure style={{ margin: "auto" }}>
-              <img
-                style={{ width: "80px", height: "80px" }}
-                src={iconeAnimado}
-                alt="Ícone animado"
-              />
-            </figure>
+            <Box
+              sx={{ display: { xs: 'none', md: 'block' } }}
+            >
+              <figure style={{ margin: "auto" }}>
+                <img
+                  style={{ width: "80px", height: "80px" }}
+                  src={iconeAnimado}
+                  alt="Ícone animado"
+                />
+              </figure>
+            </Box>
           </Box>
 
         </Box>
@@ -317,7 +335,7 @@ const CadastroCliente = () => {
       </Rodape>
 
 
-    </>
+    </Box>
   );
 };
 

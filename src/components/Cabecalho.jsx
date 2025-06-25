@@ -4,7 +4,8 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Box
+  Box,
+  Tooltip
 } from '@mui/material';
 
 import {
@@ -13,10 +14,11 @@ import {
   Home as HomeIcon
 } from '@mui/icons-material';
 import BotaoDeslogar from './BotaoDeslogar';
+import { Link } from 'react-router-dom';
 
 
 
-const Cabecalho = ({ alternarGaveta}) => {
+const Cabecalho = ({ alternarGaveta }) => {
 
   return (
 
@@ -38,17 +40,28 @@ const Cabecalho = ({ alternarGaveta}) => {
               <MenuIcon />
             </IconButton>
 
-            <Typography variant="h6"  sx={{fontFamily:"Gilroy light", color: "white"}}>
+            <Typography variant="h6" sx={{ fontFamily: "Gilroy light", color: "white" }}>
               Jr Chaveiros
             </Typography>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+              <img src="public/imagens/flor-da-vida.png" alt="logo flor da vida" 
+              style={{ width: '30px', height: '30px', marginLeft: '10px' }}
+              />
+            </Box>
+
+
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: "center" }}>
-            <IconButton>
-              <HomeIcon sx={{ color: 'white' }}/>
-            </IconButton>
 
-              <BotaoDeslogar/>
+            <Tooltip
+              title="Voltar ao Dashboard">
+              <IconButton component={Link} to='dashboard'>
+                <HomeIcon sx={{ color: 'white' }} />
+              </IconButton>
+            </Tooltip>
+            <BotaoDeslogar />
           </Box>
 
 

@@ -14,6 +14,7 @@ import useHookCrud from "../../hooks/HookCrud";
 import { ClientesContext } from "../../contextos/ClientesContext";
 
 const Pedidos = () => {
+
   const {
     buscarClientePorNome,
     enviarPedidoCliente,
@@ -56,6 +57,7 @@ const Pedidos = () => {
   };
 
   const enviandoPedidoCliente = (evento) => {
+
     evento.preventDefault();
     enviarPedidoCliente(pesquisaProduto, quantidade, idCliente);
     setPesquisaCliente("");
@@ -68,7 +70,7 @@ const Pedidos = () => {
     <>
       <Box
         sx={{
-          width: 480,
+          width: { xs: "70%", md: "32%" },
           height: 400,
           display: "flex",
           flexDirection: "column",
@@ -81,12 +83,14 @@ const Pedidos = () => {
           bgcolor: "#ffffff",
           marginTop: 18,
           boxShadow: "0 10px 40px rgba(0, 0, 0, 0.1)",
+          
         }}
         component="form"
         onSubmit={enviandoPedidoCliente}
       >
         <Typography
           sx={{
+            display:{ xs: "none", md: "block" },
             color: "#2d2d2f",
             fontFamily: "Poppins semibold",
             textAlign: "center",
@@ -96,6 +100,19 @@ const Pedidos = () => {
         >
           Cadastre um Novo <span style={{ color: "#3441b1" }}>Pedido</span> no
           Sistema:
+        </Typography>
+
+        <Typography
+          sx={{
+            display:{ xs: "block", md: "none" },
+            color: "#2d2d2f",
+            fontFamily: "Poppins semibold",
+            textAlign: "center",
+            fontSize: 24,
+            marginBottom: 3,
+          }}
+        >
+          Cadastre um Novo <span style={{ color: "#3441b1" }}>Pedido</span>:
         </Typography>
 
         {/* Cliente */}
@@ -108,7 +125,6 @@ const Pedidos = () => {
             fullWidth
             size="small"
             value={pesquisaCliente}
-            onBlur={() => setPesquisaFiltrada([])}
             onFocus={() => {
               if (pesquisaCliente.trim() !== "") {
                 buscarClientePorNome(pesquisaCliente);
@@ -124,11 +140,16 @@ const Pedidos = () => {
               <List>
                 {pesquisaFiltrada.map((item) => (
                   <ListItem
+
                     key={item.id}
-                    onClick={() =>
-                      preenchendoInputNome(item.nome, item.id)
-                    }
-                    sx={{ cursor: "pointer" }}
+                    onClick={() => preenchendoInputNome(item.nome, item.id)}
+                    sx={{
+                      cursor: "pointer",
+                      '&:hover': {
+                        bgcolor: '#e0e0e0a6',
+                      }
+
+                    }}
                   >
                     <ListItemText primary={item.nome} />
                   </ListItem>
@@ -149,7 +170,6 @@ const Pedidos = () => {
             size="small"
             value={pesquisaProduto}
             onChange={buscandoProdutoPorNome}
-            onBlur={() => setPesquisaFiltradaProduto([])}
             onFocus={() => {
               if (pesquisaProduto.trim() !== "") {
                 buscarProdutoNoEstoquePorNome(pesquisaProduto);
@@ -158,6 +178,7 @@ const Pedidos = () => {
             placeholder="Produto"
             autoComplete="off"
             sx={textFieldStyle}
+            
           />
           {pesquisaFiltradaProduto.length > 0 && (
             <Paper sx={dropdownStyle}>
@@ -166,7 +187,11 @@ const Pedidos = () => {
                   <ListItem
                     key={item.id}
                     onClick={() => preenchendoInputProduto(item.produto)}
-                    sx={{ cursor: "pointer" }}
+                    sx={{ cursor: "pointer",
+                      '&:hover': {
+                        bgcolor: '#e0e0e0a6',
+                      }
+                     }}
                   >
                     <ListItemText primary={item.produto} />
                   </ListItem>
@@ -175,6 +200,8 @@ const Pedidos = () => {
             </Paper>
           )}
         </Box>
+
+         
 
         {/* Quantidade */}
         <InputLabel htmlFor="quantidade-input" sx={labelStyle}>
@@ -191,11 +218,11 @@ const Pedidos = () => {
           sx={{
             mb: "25px",
             "& .MuiOutlinedInput-root": {
-              bgcolor: "white",
+              bgcolor: "#f9f9f9",
               "& fieldset": {
                 borderRadius: 2,
                 borderWidth: "1.5px",
-                borderColor: "#b7b4b4",
+                borderColor: "#c4c4c4",
               },
             },
           }}
@@ -227,7 +254,7 @@ const Pedidos = () => {
 };
 
 const labelStyle = {
-  color: "black",
+  color: "#2d2d2f",
   mb: "8px",
   fontFamily: "Poppins regular",
   fontSize: 16,
@@ -243,11 +270,11 @@ const textFieldStyle = {
     fontFamily: "Poppins regular",
   },
   "& .MuiOutlinedInput-root": {
-    bgcolor: "white",
+     bgcolor: "#f9f9f9",
     "& fieldset": {
       borderRadius: 2,
       borderWidth: "1.5px",
-      borderColor: "#b7b4b4",
+      borderColor: "#c4c4c4",
     },
   },
 };

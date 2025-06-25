@@ -44,14 +44,16 @@ const ContainerSuspenso = ({
         <React.Fragment>
 
             <Dialog
-                fullScreen={fullScreen}
+              
                 open={abrir}
                 onClose={fecharContainerSuspenso}
                 aria-labelledby="responsive-dialog-title"
                 aria-hidden={false}
                 PaperProps={{
-                    sx: {
-                      borderRadius: "10px",
+                   sx: {
+                        borderRadius: "10px",
+                        maxWidth: { xs: '50%%', sm: '300px', md: '450px' },
+                        margin: { xs: '30px', sm: '32px' }
                     },
                   }}
             >
@@ -75,7 +77,6 @@ const ContainerSuspenso = ({
 
                 <DialogContent
                     style={{
-                        width: '500px',
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '16px',

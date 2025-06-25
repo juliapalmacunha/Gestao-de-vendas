@@ -14,6 +14,7 @@ import ContainerSuspenso from '../../components/ContainerSuspenso';
 import useHookCrud from '../../hooks/HookCrud';
 import { ClientesContext } from '../../contextos/ClientesContext';
 import { useNavigate } from 'react-router-dom';
+import ContainerSuspensoDeletClient from '../../components/ContainerSuspensoDeletClient';
 
 
 
@@ -43,13 +44,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const Clientes = () => {
 
-  const { buscarClientes } = useHookCrud()
+  const { buscarClientes, editarCliente, deletarCliente } = useHookCrud()
   const { clientes } = useContext(ClientesContext);
 
-  
-  useEffect(() => {
-    buscarClientes()
-  }, [])
+
+
 
 
   const [nomeTemp, setNomeTemp] = useState("")
@@ -59,7 +58,6 @@ const Clientes = () => {
   const [idTemp, setIdTemp] = useState("")
 
 
-  const { editarCliente, deletarCliente } = useHookCrud()
 
 
   const editandoCliente = () => {
@@ -73,13 +71,12 @@ const Clientes = () => {
   }
 
 
-  const deletandoCliente = (id) => {
-    deletarCliente(id)
-  }
 
 
 
   const [open, setOpen] = React.useState(false);
+  const [openDeletClient, setOpenDeletClient] = React.useState(false);
+  const [idClienteDeletar, setIdClienteDeletar] = useState("");
 
 
   const abrirContainerSuspenso = (cliente) => {
@@ -92,16 +89,33 @@ const Clientes = () => {
   };
 
 
+  const abrirContainerSuspensoDeletClient = (idClient) => {
+    setOpenDeletClient(true);
+    setIdClienteDeletar(idClient);
+  };
+
+
+
   const FecharContainerSuspenso = () => {
     setOpen(false);
   };
+  const FecharContainerSuspensoDeletClient = () => {
+    setOpenDeletClient(false);
+  };
+
+
 
   const navigate = useNavigate();
 
 
+  useEffect(() => {
+    buscarClientes()
+  }, [])
+
+
 
   return (
-    <TableContainer sx={{marginTop: "64px"}}>
+    <TableContainer sx={{ marginTop: "64px" }}>
       <Table>
 
         <TableHead>
@@ -113,7 +127,7 @@ const Clientes = () => {
             <StyledTableCell>Estado</StyledTableCell>
             <StyledTableCell>Editar</StyledTableCell>
             <StyledTableCell>Pedidos</StyledTableCell>
-            <StyledTableCell>Lixeira</StyledTableCell> 
+            <StyledTableCell>Lixeira</StyledTableCell>
 
 
           </TableRow>
@@ -134,12 +148,12 @@ const Clientes = () => {
                 </IconButton>
               </StyledTableCell>
               <StyledTableCell>
-                <IconButton  onClick={() => navigate(`/pedidoDoCliente/${cliente.id}/${cliente.nome}`)} >
-                  <VisibilityIcon/>
+                <IconButton onClick={() => navigate(`/pedidoDoCliente/${cliente.id}/${cliente.nome}`)} >
+                  <VisibilityIcon />
                 </IconButton>
               </StyledTableCell>
               <StyledTableCell>
-                <IconButton  onClick={() => deletandoCliente(cliente.id)} >
+                <IconButton onClick={() => abrirContainerSuspensoDeletClient(cliente.id)} >
                   <DeleteIcon />
                 </IconButton>
               </StyledTableCell>
@@ -150,23 +164,33 @@ const Clientes = () => {
 
       </Table>
 
-      <ContainerSuspenso 
-      abrir={open} 
-      fecharContainerSuspenso={FecharContainerSuspenso} 
-      editandoCliente={editandoCliente} 
+      <ContainerSuspenso
+        abrir={open}
+        fecharContainerSuspenso={FecharContainerSuspenso}
+        editandoCliente={editandoCliente}
 
-      nome={nomeTemp} 
-      telefone={telefoneTemp} 
-      cidade={cidadeTemp} 
-      estado={estadoTemp} 
-      idCliente={idTemp} 
-      
-      setNomeTemp={setNomeTemp} 
-      setTelefoneTemp={setTelefoneTemp} 
-      setCidadeTemp={setCidadeTemp} 
-      setEstadoTemp={setEstadoTemp}>
+        nome={nomeTemp}
+        telefone={telefoneTemp}
+        cidade={cidadeTemp}
+        estado={estadoTemp}
+        idCliente={idTemp}
 
+        setNomeTemp={setNomeTemp}
+        setTelefoneTemp={setTelefoneTemp}
+        setCidadeTemp={setCidadeTemp}
+        setEstadoTemp={setEstadoTemp}>
       </ContainerSuspenso>
+
+
+
+      <ContainerSuspensoDeletClient
+        abrirDeletClient={openDeletClient}
+        fecharContainerSuspensoDeletClient={FecharContainerSuspensoDeletClient}
+        idClienteDeletar={idClienteDeletar}
+      >
+      </ContainerSuspensoDeletClient>
+
+
 
     </TableContainer>
   );

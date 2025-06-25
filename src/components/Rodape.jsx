@@ -6,6 +6,7 @@ const Rodape = ({children}) => {
     
     <Box  
     marginTop="40px"
+
     sx={{
       backgroundColor: "#f2f5fa",
       width: '100%',

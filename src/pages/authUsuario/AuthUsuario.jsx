@@ -13,8 +13,8 @@ const AuthUsuario = () => {
     const [emailUsuario, setEmailUsuario] = useState("");
     const [senhaUsuario, setSenhaUsuario] = useState("");
 
-    
-    
+
+
     const { autenticandoCliente } = useHookAutenticacao();
 
     const autenticacaoDoUsuario = (evento) => {
@@ -30,129 +30,201 @@ const AuthUsuario = () => {
 
             <Box
                 sx={{
+                    width: { xs: '400px', md: '880px' },
+                  
                     boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
-                    paddingBottom: "40px",
-                    marginBottom: 20,
-                    marginTop: 25
+                    marginBottom: 17,
+                    marginTop: 17
                 }}
                 display="flex"
-                flexDirection="column"
                 bgcolor="white"
-                width="600px"
-                height="250px"
+               
+                height="400px"
                 borderRadius="10px"
                 justifyContent="center"
                 alignItems="center"
                 mx="auto"
-                p={2}
+                component="form"
+                onSubmit={autenticacaoDoUsuario}
+                overflow="hidden"
             >
 
 
-                <Box
-                    component="form"
-                    width="100%"
-                    p={2}
-                    bgcolor="white"
-                    display="flex"
-                    gap={1}
-                    onSubmit={autenticacaoDoUsuario}
-                >
 
+
+                <Box
+                sx={{
+                    display: { xs: 'none', md: 'flex' },
+                }}
+                    bgcolor="#3441b1"
+                    width="60%"
+                    height="100%"
+                    display="flex"
+                    flexDirection="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
                     <Box
                         display="flex"
                         flexDirection="column"
-                        width="60%"
-                        gap={1}
-                        paddingInline={7}
+                        justifyContent="center"
+                        alignItems="center"
+                        width="100%"
+                        height="30%"
+                        color="white"
+                        gap="10px"
                     >
-                        <InputLabel
-                            htmlFor="email-input" sx={{ color: "#444141", mt: "5px", fontFamily: "Poppins regular", fontSize: 16, display: "flex", justifyContent: "flex-start", alignItems: "flex-start", width: "100%" }}>
-                            Email:
-                        </InputLabel>
-                        <TextField
-                            type="email"
-                            id="email-input"
-                            fullWidth size="small"
-                            value={emailUsuario}
-                            onChange={(e) => setEmailUsuario(e.target.value)}
-                            autoComplete="off"
-                            slotProps={{
-                                inputLabel: { shrink: false }
+                        <h2
+                            style={{
+                                margin: "2px",
+                                fontFamily: "Poppins semibold",
+                                fontSize: "24px",
+                                textAlign: "center"
                             }}
-                            sx={{
-                                "& .MuiInputLabel-root": {
-                                    color: "black",
-                                    fontFamily: "Poppins regular"
-                                },
-                                "& .MuiOutlinedInput-root": {
-                                    bgcolor: "#eaedf4",
-                                    "& fieldset": {
-                                        borderRadius: 2,
-                                        borderWidth: "0",
-                                        borderColor: "#b7b4b4",
-                                    },
-                                }
+                        >Welcome back</h2>
+                        <p
+                            style={{
+                                margin: "2px",
+                                fontFamily: "Poppins regular",
+                                fontSize: "14px",
+                                textAlign: "center"
                             }}
-                        />
-
-
-                        <InputLabel htmlFor="senha-input" sx={{ color: "#444141", mt: "5px", fontFamily: "Poppins regular", fontSize: 16, display: "flex", justifyContent: "flex-start", alignItems: "flex-start", width: "100%" }}>
-                            Senha:
-                        </InputLabel>
-                        <TextField
-                            type="password"
-                            id="senha-input"
-                            fullWidth size="small"
-                            value={senhaUsuario}
-                            onChange={(e) => setSenhaUsuario(e.target.value)}
-                            autoComplete="off"
-                            slotProps={{
-                                inputLabel: { shrink: false }
-                            }}
-                            sx={{
-                                "& .MuiInputLabel-root": {
-                                    color: "black",
-                                    fontFamily: "Poppins regular"
-                                },
-                                "& .MuiOutlinedInput-root": {
-                                    bgcolor: "#eaedf4",
-                                    "& fieldset": {
-                                        borderRadius: 2,
-                                        borderWidth: "0",
-                                        borderColor: "#b7b4b4",
-                                    },
-                                }
-                            }}
-                        />
-
-
-
-
-                        <Button
-                            variant="contained"
-                            sx={{
-                                mt: 3,
-                                '&.Mui-disabled': {
-                                    bgcolor: "#3441b1",
-                                    color: "#ffffff",
-                                    fontFamily: "Poppins semibold",
-                                    fontSize: 16,
-                                    pointerEvents: "auto",
-                                    '&:hover': { bgcolor: '#2b305c' },
-                                    width: "100%",
-                                    borderRadius: "5px"
-                                }
-                            }}
-                            type="submit"
-                            disabled={!emailUsuario || !senhaUsuario}
-                        >
-                            Enviar
-                        </Button>
-
+                        >Entre com suas credenciais para um acesso seguro.</p>
                     </Box>
 
+                    <img
+                        width="250px"
+                        height="250px"
+                        src="public/imagens/Automated_Bank_Reconciliation_Software__The_Ultimate_Solution_for_Faster_and_Accurate_Reconciliation-removebg-preview.png" alt="" />
 
                 </Box>
+                
+
+                <Box
+
+                sx={{
+                    width: { xs: '100%', md: '40%' },
+                    padding: { xs: 4, md: 10}
+                    
+                }}
+                    backgroundColor="white"
+                    display="flex"
+                    flexDirection="column"
+                    height="100%"
+                    justifyContent="center"
+                    alignItems="center"
+                    padding={10}
+                    gap={1}
+
+                >
+
+
+                     <Box
+                    sx={{
+                        display: { xs: 'flex', md: 'none' },
+                    }}
+                    >
+                        <h2
+                            style={{
+                                marginBottom: "20px",
+                                fontFamily: "Poppins semibold",
+                                fontSize: "24px",
+                                textAlign: "center",
+                                color: "#3441b1"
+                            }}
+                        >Acesse sua conta</h2>
+                    </Box>
+
+                   
+
+                    <InputLabel
+                        htmlFor="email-input" sx={{ color: "#444141", mt: "5px", fontFamily: "Poppins regular", fontSize: 16, display: "flex", justifyContent: "flex-start", alignItems: "flex-start", width: "100%" }}>
+                        Email:
+                    </InputLabel>
+                    <TextField
+                        type="email"
+                        id="email-input"
+                        fullWidth size="small"
+                        value={emailUsuario}
+                        onChange={(e) => setEmailUsuario(e.target.value)}
+                        autoComplete="off"
+                        slotProps={{
+                            inputLabel: { shrink: false }
+                        }}
+                        sx={{
+                            "& .MuiInputLabel-root": {
+                                color: "black",
+                                fontFamily: "Poppins regular"
+                            },
+                            "& .MuiOutlinedInput-root": {
+                                bgcolor: "#eaedf4",
+                                "& fieldset": {
+                                    borderRadius: 2,
+                                    borderWidth: "0",
+                                    borderColor: "#b7b4b4",
+                                },
+                            }
+                        }}
+                    />
+
+
+                    <InputLabel htmlFor="senha-input" sx={{ color: "#444141", mt: "5px", fontFamily: "Poppins regular", fontSize: 16, display: "flex", justifyContent: "flex-start", alignItems: "flex-start", width: "100%" }}>
+                        Senha:
+                    </InputLabel>
+                    <TextField
+                        type="password"
+                        id="senha-input"
+                        fullWidth size="small"
+                        value={senhaUsuario}
+                        onChange={(e) => setSenhaUsuario(e.target.value)}
+                        autoComplete="off"
+                        slotProps={{
+                            inputLabel: { shrink: false }
+                        }}
+                        sx={{
+                            "& .MuiInputLabel-root": {
+                                color: "black",
+                                fontFamily: "Poppins regular"
+                            },
+                            "& .MuiOutlinedInput-root": {
+                                bgcolor: "#eaedf4",
+                                "& fieldset": {
+                                    borderRadius: 2,
+                                    borderWidth: "0",
+                                    borderColor: "#b7b4b4",
+                                },
+                            }
+                        }}
+                    />
+
+
+                    <Button
+                        variant="contained"
+                        sx={{
+                            mt: 3,
+                            bgcolor: "#3441b1",
+                            color: "#ffffff",
+                            fontFamily: "Poppins semibold",
+                            fontSize: 16,
+                            width: "100%",
+                            borderRadius: "5px",
+                            '&:hover': { bgcolor: '#2b305c' },
+                            '&.Mui-disabled': {
+                                bgcolor: "#3441b1",
+                                color: "#ffffff",
+                                pointerEvents: "auto", // opcional
+                            }
+                        }}
+                        type="submit"
+                        disabled={!emailUsuario || !senhaUsuario}
+                    >
+                        Enviar
+                    </Button>
+
+                </Box>
+
+
+
 
 
             </Box>

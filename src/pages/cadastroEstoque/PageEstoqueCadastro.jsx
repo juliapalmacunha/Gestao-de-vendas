@@ -65,6 +65,9 @@ const PageEstoqueCadastro = () => {
     alignItems: 'center',
     justifyContent: 'center',
     px: 2,
+    paddingLeft: { xs: 4, md: 4 },
+    paddingRight: { xs: 4, md: 4 },
+    paddingTop: { xs: 3, md: 4 },
   }}
 >
   <Box

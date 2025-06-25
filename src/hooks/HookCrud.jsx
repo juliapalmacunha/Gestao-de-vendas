@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
 import { ClientesContext } from "../contextos/ClientesContext";
 import { getDocs, collection, doc, updateDoc, addDoc, deleteDoc, query, where, getDoc } from "firebase/firestore";
-import { auth, db } from "../Firebase/firebaseConfig";
+import {  db } from "../Firebase/firebaseConfig";
 import { toast } from 'react-toastify';
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 // Hook personalizado com funcionalidades CRUD
@@ -12,7 +11,7 @@ export default function useHookCrud() {
 
     const navigate = useNavigate();
 
-    const { clientes, setClientes, pesquisaFiltrada, setPesquisaFiltrada, pesquisaFiltradaProduto, setPesquisaFiltradaProduto, setPedidosDoCliente, setVendasTotais, setFaturamento, setPedidosFiltrados, setPedidosAcumulados, pedidosAcumulados, setEstoqueTotal, setPizza } = useContext(ClientesContext);
+    const { clientes, setClientes, pesquisaFiltrada, setPesquisaFiltrada, pesquisaFiltradaProduto, setPesquisaFiltradaProduto, setPedidosDoCliente, setVendasTotais, setFaturamento, setPedidosFiltrados, setPedidosAcumulados, pedidosAcumulados, setEstoqueTotal, setPizza, setDataListMensal } = useContext(ClientesContext);
 
 
 
@@ -114,6 +113,7 @@ export default function useHookCrud() {
 
     //DELETAR PEDIDO ESPECIFICO DO CLIENTE
     const deletarPedido = async (idDoCliente, idDoPedido) => {
+        
 
 
         try {
@@ -220,54 +220,48 @@ export default function useHookCrud() {
     //ENVIANDO PEDIDO PARA UMA SUBCOLEÇÃO CRIADA DE ACORDO COM O CLIENTE, E SUBTRAINDO DO ESTOQUE
     const enviarPedidoCliente = async (produto, quantidade, id) => {
         try {
-
+            // Consulta o estoque e traz apenas o primeiro produto correspondente
             const q = query(
                 collection(db, "estoque"),
-                where("produto", "==", produto)
+                where("produto", "==", produto),
             );
 
             const querySnapshot = await getDocs(q);
 
-            if (!querySnapshot.empty) {
-                querySnapshot.forEach(async (documento) => {
-                    const produtoDocRef = documento.ref;
-                    const produtoData = documento.data();
-
-
-                    if (produtoData.quantidade >= Number(quantidade)) {
-                        const novaQuantidade = Number(produtoData.quantidade) - Number(quantidade);
-                        await updateDoc(produtoDocRef, { quantidade: novaQuantidade });
-
-                        const clienteRef = doc(db, 'clientes', id);
-                        const clienteDoc = await getDoc(clienteRef);
-
-                        if (!clienteDoc.exists()) {
-                            toast.error('Cliente não encontrado');
-                            return;
-                        }
-
-                        const pedidosRef = collection(clienteRef, 'pedidos');
-                        const precoUnitario = 1.50;
-
-                        const pedido = {
-                            produto,
-                            quantidade,
-                            data: new Date().toLocaleDateString('pt-BR').split('/').reverse().join('-'),
-                            preco: (quantidade * precoUnitario).toLocaleString('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL'
-                            })
-                        };
-
-                        await addDoc(pedidosRef, pedido);
-                        toast.success('Pedido cadastrado com sucesso');
-                    } else {
-                        toast.warn(`Quantidade insuficiente no estoque. Apenas ${produtoData.quantidade} unidades disponíveis.`);
-                    }
-                });
-            } else {
+            if (querySnapshot.empty) {
                 toast.warn('Produto não encontrado no estoque');
+                return;
             }
+
+            const documento = querySnapshot.docs[0];
+            const produtoDocRef = documento.ref;
+            const produtoData = documento.data();
+
+            if (produtoData.quantidade < Number(quantidade)) {
+                toast.warn(`Quantidade insuficiente no estoque. Apenas ${produtoData.quantidade} unidades disponíveis.`);
+                return;
+            }
+
+            // Atualiza o estoque
+            const novaQuantidade = produtoData.quantidade - Number(quantidade);
+            await updateDoc(produtoDocRef, { quantidade: novaQuantidade });
+
+            // Adiciona o pedido direto no cliente
+            const pedidosRef = collection(doc(db, 'clientes', id), 'pedidos');
+            const precoUnitario = 1.50;
+            const pedido = {
+                produto,
+                quantidade,
+                data: new Date().toLocaleDateString('pt-BR').split('/').reverse().join('-'),
+                preco: (quantidade * precoUnitario).toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                })
+            };
+
+            await addDoc(pedidosRef, pedido);
+            toast.success('Pedido cadastrado com sucesso');
+
         } catch (error) {
             console.error('Erro ao cadastrar o pedido: ', error);
             toast.error('Erro ao cadastrar o pedido');
@@ -453,10 +447,84 @@ export default function useHookCrud() {
 
 
 
-   
+    //BUSCANDO DADOS CORRESPONDENTE AO MES
+    const buscandoArquivoCorrespondenteAoMes = async (mesParametro) => {
+
+        const formatarDataParaDate = (dataInput) => {
+            if (!dataInput) return null;
+
+            if (dataInput instanceof Date) {
+                return dataInput;
+            }
+
+            if (typeof dataInput.toDate === "function") {
+                return dataInput.toDate();
+            }
+
+            if (typeof dataInput === "string") {
+                return new Date(dataInput);
+            }
+
+            return null;
+        };
+
+        const clientesSnapshot = await getDocs(collection(db, "clientes"));
+
+        const lista = []
+
+        for (const clienteDoc of clientesSnapshot.docs) {
+            const nomeDoCliente = clienteDoc.data().nome;
+            const clienteId = clienteDoc.id;
+            const clienteData = clienteDoc.data();
+
+            // Subcoleção de pedidos
+            const pedidosRef = collection(db, "clientes", clienteId, "pedidos");
+            const pedidosSnapshot = await getDocs(pedidosRef);
+
+            
+            const pedidosDoMes = [];
 
 
- 
+            pedidosSnapshot.forEach((pedidoDoc) => {
+                const pedidoData = pedidoDoc.data();
+
+                const dataPedido = formatarDataParaDate(pedidoData.data);
+
+                if (dataPedido) {
+                    const mesPedido = dataPedido.getMonth() + 1;
+
+                    if (mesPedido === mesParametro) {
+                        pedidosDoMes.push({
+                            pedidoId: pedidoDoc.id,
+                            clienteNome: clienteData.nome,
+                            ...pedidoData,
+                        });
+                    }
+                }
+            });
+
+
+
+            lista.push({
+                clienteId,
+                clienteData,
+                clienteNome: nomeDoCliente,
+                mesParametro,
+                pedidos: pedidosDoMes,
+            });
+    
+        }
+
+
+       setDataListMensal(lista);
+    
+    };
+
+
+
+
+
+
 
 
 
@@ -492,7 +560,7 @@ export default function useHookCrud() {
         mostraItensMaisVendido,
         primeirosDezItensMaisVendidos,
         buscaQuantidadeTotalNoEstoqueUmDeCada,
-        
+        buscandoArquivoCorrespondenteAoMes
 
     };
 

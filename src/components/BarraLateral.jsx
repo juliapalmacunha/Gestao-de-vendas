@@ -53,17 +53,6 @@ const BarraLateral = ({ alternarGaveta, estadoGaveta }) => {
 
           <Divider />
 
-
-           <ListItemButton onClick={alternarGaveta} component={Link} to='' >
-            <ListItemIcon>
-              <AssignmentIndIcon />
-            </ListItemIcon>
-            <ListItemText primary="User Auth" primaryTypographyProps={estiloFonte} />
-          </ListItemButton>
-
-
-
-
           <ListItemButton onClick={alternarGaveta} component={Link} to='dashboard' >
             <ListItemIcon>
               <BarChartIcon />

@@ -30,16 +30,57 @@ import GraficoPizza from "../../components/graficos/GraficoPizza";
 import GraficoBarraQuant from "../../components/graficos/GraficoBarraQuant";
 import GraficoBarraProdutos from "../../components/graficos/GraficoBarraProdutos";
 import useHookUtils from "../../hooks/HookUtils";
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { styled } from '@mui/material/styles';
+import EventIcon from '@mui/icons-material/Event';
+
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { DatePicker } from '@mui/x-date-pickers';
+import { se } from "date-fns/locale";
+
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Filler, Title, Tooltip, Legend);
 
 const Dashboard = () => {
 
 
-  const { buscarClientes, mostraVendaTotal, mostraFaturamentoTotal, mostraItensMaisVendido, primeirosDezItensMaisVendidos, buscaQuantidadeTotalNoEstoqueUmDeCada } = useHookCrud();
+
+
+  const { buscarClientes, mostraVendaTotal, mostraFaturamentoTotal, mostraItensMaisVendido, primeirosDezItensMaisVendidos, buscaQuantidadeTotalNoEstoqueUmDeCada, buscandoArquivoCorrespondenteAoMes } = useHookCrud();
   const { atualizarGraficoBarraVertical, atualizarGraficoLine, atualizarGraficoBarraVerticalEstoqueUmDeCada } = useHookGrafico()
-  const {calculandoValorTotalEstoque, calculandoTicketMedio} = useHookUtils()
-  const { clientes, vendasTotais, ticketMedio, faturamento, estoqueTotal, pedidosAcumulados, pizza, quantEstoqueTotal } = useContext(ClientesContext);
+  const { calculandoValorTotalEstoque, calculandoTicketMedio } = useHookUtils()
+  const { clientes, vendasTotais, ticketMedio, faturamento, estoqueTotal, pedidosAcumulados, pizza, quantEstoqueTotal, dataListMensal } = useContext(ClientesContext);
+
+
+  const [value, setValue] = React.useState(null);
+
+  const capturaMesFiltragemUpload = (newValue) => {
+    setValue(newValue);
+    const data = new Date(newValue);
+    const numeroDoMes = data.getMonth() + 1;
+    buscandoArquivoCorrespondenteAoMes(numeroDoMes);
+  }
+
+
+  const baixandoArquivoJson = () => {
+    if (dataListMensal.length === 0) {
+      alert("Nenhum dado para baixar. Faça uma filtragem primeiro.");
+      return;
+    }
+
+    const dataStr = JSON.stringify(dataListMensal, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `relatorio_do_mes_${new Date().toISOString()}.json`;
+    link.click();
+
+    URL.revokeObjectURL(url);
+  };
 
 
   const [loading, setLoading] = useState(true);
@@ -70,22 +111,29 @@ const Dashboard = () => {
   ]);
 
 
-  const [cidades, setCidades] = useState([
-    { id: 0, nome: "Natal", valor: 0 },
-    { id: 1, nome: "Fortaleza", valor: 0 },
-    { id: 2, nome: "Pipa", valor: 0 },
-    { id: 3, nome: "João Pessoa", valor: 0 },
-    { id: 4, nome: "Recife", valor: 0 },
-    { id: 5, nome: "Porto de Galinhas", valor: 0 },
-    { id: 6, nome: "São Miguel", valor: 0 }
-  ]);
+
+
+
+  const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+  });
 
 
   const indicadores = [
     { nome: "Vendas Totais", valor: vendasTotais, icone: ShoppingCartIcon },
-    { nome: "Ticket medio", valor: !isNaN(ticketMedio)
-      ? ticketMedio.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
-      : "R$ 0,00", icone: RedeemIcon },
+    {
+      nome: "Ticket medio", valor: !isNaN(ticketMedio)
+        ? ticketMedio.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+        : "R$ 0,00", icone: RedeemIcon
+    },
     { nome: "Quantidade no Estoque", valor: quantEstoqueTotal, icone: InventoryIcon },
     { nome: "Faturamento", valor: faturamento, icone: MonetizationOnIcon }
   ]
@@ -194,11 +242,11 @@ const Dashboard = () => {
 
 
 
-  useMemo(() => {
+  useEffect(() => {
     calculandoTicketMedio()
   }, [vendasTotais, faturamento]);
 
-  useMemo(() => {
+  useEffect(() => {
     calculandoValorTotalEstoque();
   }, [estoqueTotal]);
 
@@ -224,7 +272,7 @@ const Dashboard = () => {
   useEffect(() => {
     const loadData = async () => {
       await buscarClientes();
-      await  buscaQuantidadeTotalNoEstoqueUmDeCada();
+      await buscaQuantidadeTotalNoEstoqueUmDeCada();
       setLoading(false);
     };
     loadData();
@@ -240,11 +288,13 @@ const Dashboard = () => {
   }
 
 
+
+
   return (
 
     <Box style={{ backgroundColor: "#f2f5fa", padding: "40px", paddingTop: "90px" }}>
 
-      <Box sx={{ width: "100%",fontFamily: "Roboto regular", height: "100px", marginBottom: "40px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Box sx={{ width: "100%", fontFamily: "Roboto regular", height: "100px", marginBottom: "40px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         {indicadores.map((indicador) => {
           const IconComponent = indicador.icone
           return (
@@ -281,6 +331,65 @@ const Dashboard = () => {
         </Grid>
 
       </Grid>
+
+
+
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          marginTop: '40px',
+          marginBottom: '20px',
+          gap: '18px',
+        }}
+      >
+
+
+        <LocalizationProvider
+          dateAdapter={AdapterDateFns}>
+          <DatePicker
+            label="Data do Pedido"
+            slotProps={{
+              textField: {
+                size: 'small',
+                border: 'none',
+                variant: 'outlined',
+                sx: {
+                  width: '165px',
+                  height: '40px',
+                  backgroundColor: '#2d2d2f29',
+                  borderRadius: '4px',
+
+                }
+              }
+            }}
+            onClick={capturaMesFiltragemUpload}
+            value={value}
+            onChange={(newValue) => capturaMesFiltragemUpload(newValue)}
+
+          />
+        </LocalizationProvider>
+
+
+
+
+
+
+
+        <Button
+          variant="contained"
+          tabIndex={-1}
+          startIcon={<CloudUploadIcon />}
+          onClick={baixandoArquivoJson}
+        >
+          Upload files
+        </Button>
+      </Box>
+
+
+
 
     </Box>
 

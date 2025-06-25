@@ -1,3 +1,4 @@
+import { da } from "date-fns/locale";
 import { createContext, useState } from "react";
 
 //criando um contexto para que eu possa compartilhar meu armazenamento de clientes
@@ -22,6 +23,12 @@ export default function ClientesProvider({ children }) {
     const [pedidosAcumulados, setPedidosAcumulados] = useState([])
     const [pizza, setPizza] = useState([])
 
+    const [dataListMensal, setDataListMensal] = useState([]);
+
+   
+
+   
+
 
     return (
 
@@ -38,6 +45,9 @@ export default function ClientesProvider({ children }) {
             pesquisaFiltradaProduto,
             pedidosAcumulados,
             pizza,
+            dataListMensal,
+            setDataListMensal,
+            
             setClientes, 
             setPesquisaFiltrada, 
             setPedidosDoCliente,
@@ -49,6 +59,8 @@ export default function ClientesProvider({ children }) {
             setPesquisaFiltradaProduto,
             setPedidosAcumulados,
             setPizza,
+            
+            
 
         }} >
             {children}
