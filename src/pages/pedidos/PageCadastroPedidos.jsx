@@ -70,7 +70,7 @@ const Pedidos = () => {
     <>
       <Box
         sx={{
-          width: { xs: "70%", md: "32%" },
+          width: { xs: "80%", md: "32%" },
           height: 400,
           display: "flex",
           flexDirection: "column",

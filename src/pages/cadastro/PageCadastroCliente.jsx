@@ -62,7 +62,7 @@ const CadastroCliente = () => {
       <Box
         sx={{
 
-          width: { xs: '400px', md: '900px' },
+          width: { xs: '400px', sm:"400px",  md: '55%' },
           height: { xs: '500px', md: '450px' },
           boxShadow: '0 10px 40px rgba(0, 0, 0, 0.1)',
           paddingBottom: "40px",
@@ -101,8 +101,15 @@ const CadastroCliente = () => {
            
           >
 
-            <Box>
-              <h2 style={{ fontFamily: "Poppins semibold", color: "#3441b1", fontSize: "24px", textAlign: "center" }}>
+            <Box
+            sx={{
+               display: { xs: 'block', md: 'none' }
+            }} 
+            
+            >
+              <h2 style={{ 
+               
+                fontFamily: "Poppins semibold", color: "#3441b1", fontSize: "24px", textAlign: "center" }}>
                 Cadastre seu cliente</h2>
             </Box>
 
