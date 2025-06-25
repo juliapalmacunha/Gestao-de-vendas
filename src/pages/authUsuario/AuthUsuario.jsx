@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Box, TextField, InputLabel, Button } from "@mui/material";
 import Rodape from "../../components/Rodape";
 import useHookAutenticacao from "../../hooks/HookAutenticacao";
-import imageAuth from "../assets/imagens/imageAuth.png";
+import imageAuth from "../../assets/imagens/imageAuth.png";
 
 
 
