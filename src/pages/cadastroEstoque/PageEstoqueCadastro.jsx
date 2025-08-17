@@ -22,7 +22,7 @@ const PageEstoqueCadastro = () => {
       "Flamengo", "Palmeiras", "São Paulo", "Corinthians", "Santos",
       "Grêmio", "Internacional", "Cruzeiro", "Atlético Mineiro", "Vasco",
       "Fluminense", "Botafogo", "Bahia", "Sport", "Fortaleza", "Ceará",
-      "Vitória", "America", "ABC"
+      "Vitória", "America", "ABC", "Santa Cruz"
     ].map((time, index) => ({
       nome: `${time} Chaveiro`,
       id: 100 + index
