@@ -71,14 +71,14 @@ const BarraLateral = ({ alternarGaveta, estadoGaveta }) => {
             <ListItemIcon>
               <ContentPasteIcon />
             </ListItemIcon>
-            <ListItemText primary="Cadastrar Pedido" primaryTypographyProps={estiloFonte} />
+            <ListItemText primary="Saida de Pedido" primaryTypographyProps={estiloFonte} />
           </ListItemButton>
 
           <ListItemButton onClick={alternarGaveta} component={Link} to='estoque' >
             <ListItemIcon>
               <InventoryIcon/>
             </ListItemIcon>
-            <ListItemText primary="Cadastro de Estoque" primaryTypographyProps={estiloFonte} />
+            <ListItemText primary="Entrada no Estoque" primaryTypographyProps={estiloFonte} />
           </ListItemButton>
 
           <ListItemButton onClick={alternarGaveta} component={Link} to='clientes'>
