@@ -16,27 +16,23 @@ export default function AuthProvider({ children }) {
     //controla o carregamento inicial de verificacao de autenticacao
     const [carregandoLogin, setCarregandoLogin] = useState(true)
 
+    const [loginCheck, setLoginCheck] = useState(0);
 
     useEffect(() => {
+
         console.log("Iniciando verificação de estado de autenticação...");
 
         const escutaUsuario = onAuthStateChanged(auth, (usuarioRetornado) => {
-            setUsuarioLogado(prev => {
-                // se já existe um usuário logado, "finge que mudou" reatribuindo
-                if (prev && usuarioRetornado) {
-                    return { ...usuarioRetornado, _updated: Date.now() };
-                    // adiciona um campo temporário para forçar atualização
-                }
-                return usuarioRetornado;
-            });
-
+            setUsuarioLogado(usuarioRetornado);
             setCarregandoLogin(false);
+
+             setLoginCheck(prev => prev + 1);
 
             if (usuarioRetornado) {
                 console.log("Encontramos um usuario logado");
                 toast.success(`Bem-vindo(a), ${usuarioRetornado.email}!`);
             } else {
-                console.log("Nenhum usuário está logado.");
+                console.log("Nenhum usuário esta logado.");
                 toast.info("Nenhum usuário logado");
             }
         });
@@ -45,10 +41,9 @@ export default function AuthProvider({ children }) {
     }, []);
 
 
-
     return ( //DA ACESSO
-        <AuthContext.Provider value={{ usuarioLogado, carregandoLogin }}>
-            {carregandoLogin ? <CircularProgress /> : children}
+        <AuthContext.Provider  value={{ usuarioLogado, carregandoLogin }}>
+            {carregandoLogin ?  <CircularProgress /> : children}
         </AuthContext.Provider>
     );
 };
