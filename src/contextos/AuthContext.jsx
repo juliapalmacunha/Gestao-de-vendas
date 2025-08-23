@@ -2,6 +2,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebaseConfig";
+import { toast } from "react-toastify";
 
 
 export const AuthContext = createContext()//COMPARTILHA
@@ -25,8 +26,10 @@ export default function AuthProvider({ children }) {
 
             if (usuarioRetornado) {
                 console.log("Encontramos um usuario logado");
+                toast.success(`Bem-vindo(a), ${usuarioRetornado.email}!`);
             } else {
                 console.log("Nenhum usuário esta logado.");
+                toast.info("Nenhum usuário logado");
             }
         });
 
