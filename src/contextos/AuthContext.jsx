@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../Firebase/firebaseConfig";
 import { toast } from "react-toastify";
+import { CircularProgress } from "@mui/material";
 
 
 export const AuthContext = createContext()//COMPARTILHA
@@ -17,18 +18,25 @@ export default function AuthProvider({ children }) {
 
 
     useEffect(() => {
-
         console.log("Iniciando verificação de estado de autenticação...");
 
         const escutaUsuario = onAuthStateChanged(auth, (usuarioRetornado) => {
-            setUsuarioLogado(usuarioRetornado);
+            setUsuarioLogado(prev => {
+                // se já existe um usuário logado, "finge que mudou" reatribuindo
+                if (prev && usuarioRetornado) {
+                    return { ...usuarioRetornado, _updated: Date.now() };
+                    // adiciona um campo temporário para forçar atualização
+                }
+                return usuarioRetornado;
+            });
+
             setCarregandoLogin(false);
 
             if (usuarioRetornado) {
                 console.log("Encontramos um usuario logado");
                 toast.success(`Bem-vindo(a), ${usuarioRetornado.email}!`);
             } else {
-                console.log("Nenhum usuário esta logado.");
+                console.log("Nenhum usuário está logado.");
                 toast.info("Nenhum usuário logado");
             }
         });
@@ -37,9 +45,10 @@ export default function AuthProvider({ children }) {
     }, []);
 
 
+
     return ( //DA ACESSO
         <AuthContext.Provider value={{ usuarioLogado, carregandoLogin }}>
-            {carregandoLogin ? <p>Carregando...</p> : children}
+            {carregandoLogin ? <CircularProgress /> : children}
         </AuthContext.Provider>
     );
 };
