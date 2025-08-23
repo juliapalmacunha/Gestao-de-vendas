@@ -268,19 +268,20 @@ const Dashboard = () => {
     mostraFaturamentoTotal()
     mostraItensMaisVendido()
   }, [clientes]);
-  
 
-useEffect(() => {
-  if (carregandoLogin || !usuarioLogado) return;
+  useEffect(() => {
+    // Espera a autenticação finalizar
+    if (carregandoLogin || !usuarioLogado) return;
 
-  const loadData = async () => {
-    await buscarClientes();
-    await buscaQuantidadeTotalNoEstoqueUmDeCada();
-    setLoading(false);
-  };
+    const loadData = async () => {
+      setLoading(true);
+      await buscarClientes(); // busca clientes
+      await buscaQuantidadeTotalNoEstoqueUmDeCada(); // busca estoque
+      setLoading(false);
+    };
 
-  loadData();
-}, [carregandoLogin, usuarioLogado]);
+    loadData();
+  }, [carregandoLogin, usuarioLogado]);
 
 
 
