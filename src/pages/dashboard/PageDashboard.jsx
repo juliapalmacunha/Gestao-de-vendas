@@ -270,15 +270,18 @@ const Dashboard = () => {
   }, [clientes]);
 
 
-  useEffect(() => {
-    const loadData = async () => {
-      if (!usuarioLogado) return; // só roda se tiver usuário
-      await buscarClientes();
-      await buscaQuantidadeTotalNoEstoqueUmDeCada();
-      setLoading(false);
-    };
-    loadData();
-  }, [usuarioLogado]);
+ useEffect(() => {
+  if (!usuarioLogado) return; // evita rodar sem usuário
+
+  const loadData = async () => {
+    await buscarClientes();
+    await buscaQuantidadeTotalNoEstoqueUmDeCada();
+    setLoading(false);
+  };
+
+  loadData();
+}, [usuarioLogado]); // dispara só quando o usuário logar
+
 
 
   if (carregandoLogin || loading) {
