@@ -36,6 +36,7 @@ import { styled } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DatePicker } from '@mui/x-date-pickers';
+import { AuthContext } from "../../contextos/AuthContext";
 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Filler, Title, Tooltip, Legend);
@@ -52,6 +53,8 @@ const Dashboard = () => {
 
 
   const [value, setValue] = React.useState(null);
+  const { usuarioLogado, carregandoLogin } = useContext(AuthContext);
+
 
   const capturaMesFiltragemUpload = (newValue) => {
     setValue(newValue);
@@ -82,6 +85,7 @@ const Dashboard = () => {
 
   const [loading, setLoading] = useState(true);
   const [filtro, setFiltro] = useState("quantidade");
+
 
   const trocarFiltroGraficoBarraQuant = (event) => {
     setFiltro(event.target.value);
@@ -268,15 +272,16 @@ const Dashboard = () => {
 
   useEffect(() => {
     const loadData = async () => {
+      if (!usuarioLogado) return; // só roda se tiver usuário
       await buscarClientes();
       await buscaQuantidadeTotalNoEstoqueUmDeCada();
       setLoading(false);
     };
     loadData();
-  }, []);
+  }, [usuarioLogado]);
 
 
-  if (loading) {
+  if (carregandoLogin || loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
         <CircularProgress />

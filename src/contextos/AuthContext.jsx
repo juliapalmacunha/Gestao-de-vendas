@@ -10,7 +10,7 @@ AuthContext.displayName = "Contexto de autenticação";
 
 export default function AuthProvider({ children }) {
     //armazena as informacoes do usuario logado
-    const [usuarioLogado, setUsuarioLogado] = useState("")
+    const [usuarioLogado, setUsuarioLogado] = useState(null)
     //controla o carregamento inicial de verificacao de autenticacao
     const [carregandoLogin, setCarregandoLogin] = useState(true)
 
@@ -36,7 +36,7 @@ export default function AuthProvider({ children }) {
 
     return ( //DA ACESSO
         <AuthContext.Provider value={{ usuarioLogado, carregandoLogin }}>
-            {!carregandoLogin && children}
+            {carregandoLogin ? <p>Carregando...</p> : children}
         </AuthContext.Provider>
     );
 };
