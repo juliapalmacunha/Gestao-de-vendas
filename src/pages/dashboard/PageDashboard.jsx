@@ -268,10 +268,10 @@ const Dashboard = () => {
     mostraFaturamentoTotal()
     mostraItensMaisVendido()
   }, [clientes]);
+  
 
-
- useEffect(() => {
-  if (!usuarioLogado) return; // evita rodar sem usuário
+useEffect(() => {
+  if (carregandoLogin || !usuarioLogado) return;
 
   const loadData = async () => {
     await buscarClientes();
@@ -280,7 +280,8 @@ const Dashboard = () => {
   };
 
   loadData();
-}, [usuarioLogado]); // dispara só quando o usuário logar
+}, [carregandoLogin, usuarioLogado]);
+
 
 
 

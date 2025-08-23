@@ -16,7 +16,7 @@ export default function AuthProvider({ children }) {
     //controla o carregamento inicial de verificacao de autenticacao
     const [carregandoLogin, setCarregandoLogin] = useState(true)
 
-    const [loginCheck, setLoginCheck] = useState(0);
+    
 
     useEffect(() => {
 
@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
             setUsuarioLogado(usuarioRetornado);
             setCarregandoLogin(false);
 
-             setLoginCheck(prev => prev + 1);
+            
 
             if (usuarioRetornado) {
                 console.log("Encontramos um usuario logado");
