@@ -275,14 +275,24 @@ const Dashboard = () => {
 
     const loadData = async () => {
       setLoading(true);
-      await buscarClientes(); // busca clientes
-      await buscaQuantidadeTotalNoEstoqueUmDeCada(); // busca estoque
-      setLoading(false);
+      try {
+        // Executa todas as buscas em paralelo para otimizar
+        await Promise.all([
+          buscarClientes(),
+          buscaQuantidadeTotalNoEstoqueUmDeCada(),
+          // Adicione outras funções de busca aqui se necessário
+        ]);
+      } catch (error) {
+        console.error("Erro ao carregar dados iniciais:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     loadData();
-  }, [carregandoLogin, usuarioLogado]);
 
+    // Dependências: só executa quando o login muda ou o usuário é autenticado
+  }, [carregandoLogin, usuarioLogado]);
 
 
 

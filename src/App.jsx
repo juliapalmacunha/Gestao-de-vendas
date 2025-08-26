@@ -23,9 +23,12 @@ function App() {
       <AuthProvider>
         <LayoutPrincipal>
           <Outlet />
-          <ToastContainer
+          
+        </LayoutPrincipal>
+      </AuthProvider>
+      <ToastContainer
             position="top-right"
-            autoClose={4000}
+            autoClose={1000}
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick
@@ -35,8 +38,6 @@ function App() {
             pauseOnHover
             theme="light"
           />
-        </LayoutPrincipal>
-      </AuthProvider>
 
 
     </>
