@@ -16,28 +16,73 @@ const PageEstoqueCadastro = () => {
   
 
 
+const TiposDeProdutos = [
+  // Times
+  ...[
+    "Flamengo", "Palmeiras", "São Paulo", "Corinthians", "Santos",
+    "Grêmio", "Internacional", "Cruzeiro", "Atlético Mineiro", "Vasco",
+    "Fluminense", "Botafogo", "Bahia", "Sport", "Fortaleza", "Ceará",
+    "Vitória", "America", "ABC", "Santa Cruz", "Nautico"
+  ].map((time, index) => ({
+    nome: `${time} Chaveiro`,
+    id: 100 + index
+  })),
 
-  const TiposDeProdutos = [
-    ...[
-      "Flamengo", "Palmeiras", "São Paulo", "Corinthians", "Santos",
-      "Grêmio", "Internacional", "Cruzeiro", "Atlético Mineiro", "Vasco",
-      "Fluminense", "Botafogo", "Bahia", "Sport", "Fortaleza", "Ceará",
-      "Vitória", "America", "ABC", "Santa Cruz", "Nautico"
-    ].map((time, index) => ({
-      nome: `${time} Chaveiro`,
-      id: 100 + index
-    })),
+  // Letras Femininas
+  ...Array.from({ length: 26 }, (_, i) => ({
+    nome: `${String.fromCharCode(65 + i)} Letra Feminina`,
+    id: 200 + i * 2
+  })),
 
-    ...Array.from({ length: 26 }, (_, i) => ({
-      nome: `${String.fromCharCode(65 + i)} Letra Feminina`,
-      id: 200 + i * 2
-    })),
+  // Letras Masculinas
+  ...Array.from({ length: 26 }, (_, i) => ({
+    nome: `${String.fromCharCode(65 + i)} Letra Masculina`,
+    id: 201 + i * 2
+  })),
 
-    ...Array.from({ length: 26 }, (_, i) => ({
-      nome: `${String.fromCharCode(65 + i)} Letra Masculina`,
-      id: 201 + i * 2
+  // LETRA CONEXAO COR (sem Q, U, X)
+  ...["AZUL", "ROSA", "PRETO"].flatMap((cor, corIndex) =>
+    "ABCDEFGHIJKLMNOPRSTVWYZ".split("").map((letra, i) => ({
+      nome: `${letra} CONEXAO ${cor}`,
+      id: 300 + corIndex * 100 + i
     }))
-  ];
+  ),
+
+  // Profissões
+  ...[
+    "Ed.fisica",
+    "Nutrição",
+    "Odonto",
+    "Direito",
+    "Arquitetura",
+    "Ti",
+    "Professor",
+    "Professora",
+    "Medicina",
+    "Psicologia",
+    "Pedagogia",
+    "Fisioterapia",
+    "Engenharia",
+    "Enfermagem",
+    "Farmacia",
+    "Veterinaria",
+    "Biomedicina",
+    "Agronomia",
+    "Administração de empresas"
+  ].map((profissao, index) => ({
+    nome: `${profissao} PROFISSAO`,
+    id: 600 + index
+  })),
+
+  // Casal e Personagens
+  ...[
+    { nome: "Lampião e Maria CASAL", id: 700 },
+    { nome: "Lampião PERSONAGEM", id: 701 },
+    { nome: "Maria Bonita PERSONAGEM", id: 702 }
+  ]
+];
+
+
 
 
 
