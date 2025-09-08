@@ -47,6 +47,7 @@ const CadastroCliente = () => {
     { nome: "Recife" },
     { nome: "Porto de Galinhas" },
     { nome: "São Miguel do Gostoso" },
+    { nome: "Sem nome" }
   ];
 
   return (
