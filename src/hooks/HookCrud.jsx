@@ -11,7 +11,7 @@ export default function useHookCrud() {
 
     const navigate = useNavigate();
 
-    const { clientes, setClientes, pesquisaFiltrada, setPesquisaFiltrada, pesquisaFiltradaProduto, setPesquisaFiltradaProduto, setPedidosDoCliente, setVendasTotais, setFaturamento, setPedidosFiltrados, setPedidosAcumulados, pedidosAcumulados, setEstoqueTotal, setPizza, setDataListMensal } = useContext(ClientesContext);
+    const { clientes, setClientes, produtosDoEstoque, setProdutosDoEstoque, pesquisaFiltrada, setPesquisaFiltrada, pesquisaFiltradaProduto, setPesquisaFiltradaProduto, setPedidosDoCliente, setVendasTotais, setFaturamento, setPedidosFiltrados, setPedidosAcumulados, pedidosAcumulados, setEstoqueTotal, setPizza, setDataListMensal } = useContext(ClientesContext);
 
 
 
@@ -33,7 +33,22 @@ export default function useHookCrud() {
     };
 
 
+    //BUSCAR PRODUTOS NO ESTOQUE
+    const buscarProdutosNoEstoque = async () => {
+        try {
+            const buscandoDados = await getDocs(collection(db, "estoque"));
+            const dadosProduto = buscandoDados.docs.map((produto) => ({
+                id: produto.id,
+                ...produto.data(),
+            }));
 
+            setProdutosDoEstoque(dadosProduto);
+
+
+        } catch (error) {
+            console.error("Erro ao buscar os dados:", error);
+        }
+    };
 
     //EDITAR CLIENTE VIA FIRESTORE
     const editarCliente = async (nome, telefone, cidade, estado, id) => {
@@ -542,6 +557,7 @@ export default function useHookCrud() {
 
     return {
         buscarClientes,
+        buscarProdutosNoEstoque,
         adicionarCliente,
         editarCliente,
         deletarCliente,

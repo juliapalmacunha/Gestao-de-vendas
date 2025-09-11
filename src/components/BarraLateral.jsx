@@ -18,8 +18,8 @@ import {
   HowToReg as HowToRegIcon,
   ContentPaste as ContentPasteIcon,
   BarChart as BarChartIcon,
-  Inventory as InventoryIcon
- 
+  Inventory as InventoryIcon,
+  ListAlt as ListAltIcon
 } from '@mui/icons-material';
 
 
@@ -31,23 +31,24 @@ const BarraLateral = ({ alternarGaveta, estadoGaveta }) => {
   const estiloFonte = {
     fontFamily: 'Gilroy light'
   };
-  
+
 
   return (
 
     <nav>
 
-      <Drawer anchor="left" open={estadoGaveta} onClose={alternarGaveta} sx={{fontFamily: "Gilroy ligth"}} >
+      <Drawer anchor="left" open={estadoGaveta} onClose={alternarGaveta} sx={{ fontFamily: "Gilroy ligth" }} >
 
-        <div style={{ width: 250,}}>
+        <div style={{ width: 250, }}>
 
-          <h2 style={{ 
-            textAlign: 'center', 
-            fontFamily: 'Be Vietnam Pro, sans-serif', 
-            fontWeight: '100', 
-            color: '#605f5f', 
-            marginBottom: '30px',  
-            marginTop: '40px' }}>
+          <h2 style={{
+            textAlign: 'center',
+            fontFamily: 'Be Vietnam Pro, sans-serif',
+            fontWeight: '100',
+            color: '#605f5f',
+            marginBottom: '30px',
+            marginTop: '40px'
+          }}>
             Navegation
           </h2>
 
@@ -76,7 +77,7 @@ const BarraLateral = ({ alternarGaveta, estadoGaveta }) => {
 
           <ListItemButton onClick={alternarGaveta} component={Link} to='estoque' >
             <ListItemIcon>
-              <InventoryIcon/>
+              <InventoryIcon />
             </ListItemIcon>
             <ListItemText primary="Entrada no Estoque" primaryTypographyProps={estiloFonte} />
           </ListItemButton>
@@ -88,10 +89,19 @@ const BarraLateral = ({ alternarGaveta, estadoGaveta }) => {
             <ListItemText primary="Lista de Clientes" primaryTypographyProps={estiloFonte} />
           </ListItemButton>
 
-        
 
-      
-         
+          <ListItemButton onClick={alternarGaveta} component={Link} to='produtos'>
+            <ListItemIcon>
+              <ListAltIcon />
+            </ListItemIcon>
+            <ListItemText primary="Lista de Produtos" primaryTypographyProps={estiloFonte} />
+          </ListItemButton>
+
+
+
+
+
+
 
         </div>
 

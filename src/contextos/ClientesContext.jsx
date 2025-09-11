@@ -17,6 +17,7 @@ export default function ClientesProvider({ children }) {
     const [quantEstoqueTotal, setQuantEstoqueTotal] = useState()
 
     const [clientes, setClientes] = useState([])
+    const [produtosDoEstoque, setProdutosDoEstoque] = useState([])
     const [pesquisaFiltrada, setPesquisaFiltrada] = useState([])
     const [pesquisaFiltradaProduto, setPesquisaFiltradaProduto] = useState([])
     const [pedidosDoCliente, setPedidosDoCliente] = useState([])
@@ -35,6 +36,7 @@ export default function ClientesProvider({ children }) {
 
         <ClientesContext.Provider value={{
             clientes,
+            produtosDoEstoque,
             pesquisaFiltrada,
             pedidosDoCliente,
             faturamento,
@@ -46,9 +48,10 @@ export default function ClientesProvider({ children }) {
             pedidosAcumulados,
             pizza,
             dataListMensal,
+
             setDataListMensal,
-            
             setClientes, 
+            setProdutosDoEstoque,
             setPesquisaFiltrada, 
             setPedidosDoCliente,
             setFaturamento,

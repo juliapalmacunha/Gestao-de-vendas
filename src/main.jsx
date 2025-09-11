@@ -13,6 +13,7 @@ import PedidoClienteIndividual from './pages/pedidoCliente/PagePedidoDoCliente.j
 import CadastroEstoque from './pages/cadastroEstoque/PageEstoqueCadastro.jsx'
 import AuthUsuario from './pages/authUsuario/AuthUsuario.jsx'
 import RotasPrivadas from './components/RotasPrivadas.jsx'
+import ListaDeProdutos from './pages/listaDeProdutos/ListaDeProdutos.jsx'
 
 
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
         { path: 'testes', element: <RotasPrivadas/>, children: [{ path: '', element: <Testes /> }] },
         { path: 'pedidoDoCliente/:id/:nome', element: <RotasPrivadas/>, children: [{ path: '', element: <PedidoClienteIndividual /> }] },
         { path: 'estoque', element: <RotasPrivadas/>, children: [{ path: '', element: <CadastroEstoque /> }] },
+         { path: 'produtos', element: <RotasPrivadas/>, children: [{ path: '', element: <ListaDeProdutos /> }] }
 
 
         ]

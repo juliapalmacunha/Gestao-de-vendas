@@ -37,7 +37,7 @@ const CadastroCliente = () => {
     { nome: "Piauí", sigla: "PI" },
     { nome: "Rio Grande do Norte", sigla: "RN" },
     { nome: "Sergipe", sigla: "SE" },
-     { nome: "Sem Nome", sigla: "SE" },
+    { nome: "Sem Nome", sigla: "SE" }
   ];
 
   const cidadesNordeste = [
