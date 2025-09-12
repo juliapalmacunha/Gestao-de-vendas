@@ -11,7 +11,7 @@ export default function useHookCrud() {
 
     const navigate = useNavigate();
 
-    const { clientes, setClientes, produtosDoEstoque, setProdutosDoEstoque, pesquisaFiltrada, setPesquisaFiltrada, pesquisaFiltradaProduto, setPesquisaFiltradaProduto, setPedidosDoCliente, setVendasTotais, setFaturamento, setPedidosFiltrados, setPedidosAcumulados, pedidosAcumulados, setEstoqueTotal, setPizza, setDataListMensal } = useContext(ClientesContext);
+    const { clientes, setClientes, setProdutosDoEstoque, pesquisaFiltrada, setPesquisaFiltrada, setPesquisaFiltradaProduto, setPedidosDoCliente, setVendasTotais, setFaturamento, setPedidosAcumulados, pedidosAcumulados, setEstoqueTotal, setPizza, setDataListMensal } = useContext(ClientesContext);
 
 
 

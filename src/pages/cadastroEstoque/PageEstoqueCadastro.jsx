@@ -21,7 +21,7 @@ const TiposDeProdutos = [
   ...[
     "Flamengo", "Palmeiras", "São Paulo", "Corinthians", "Santos",
     "Grêmio", "Internacional", "Cruzeiro", "Atlético Mineiro", "Vasco",
-    "Fluminense", "Botafogo", "Bahia", "Sport", "Fortaleza", "Ceará",
+    "Fluminense", "Botafogo", "Bahia", "Boca Junior", "Racing", "Independencia", "Riverplate", "Sport", "Fortaleza", "Ceará",
     "Vitória", "America", "ABC", "Santa Cruz", "Nautico"
   ].map((time, index) => ({
     nome: `${time} Chaveiro`,
